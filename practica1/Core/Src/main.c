@@ -19,6 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "logger.h"
+#include "dwt.h"
+
+/* Application includes. */
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -39,7 +43,11 @@
 /* USER CODE BEGIN PM */
 
 /* USER CODE END PM */
+TIM_HandleTypeDef htim2;
 
+UART_HandleTypeDef huart2;
+
+osThreadId defaultTaskHandle;
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
 
@@ -47,7 +55,7 @@ osThreadId Task1Handle;
 osThreadId Task2Handle;
 osSemaphoreId Binary_SemHandle;
 /* USER CODE BEGIN PV */
-
+volatile unsigned long ulHighFrequencyTimerTicks;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,6 +72,7 @@ void Task2_App(void const * argument);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 #include <stdio.h>
+#include "../../app/inc/app.h"
 extern void initialise_monitor_handles(void);
 /* USER CODE END 0 */
 
@@ -98,7 +107,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  printf("Hello, World!\n");
+  /* Start timer */
+	HAL_TIM_Base_Start_IT(&htim2);
+
+    /* add application, ... */
+	app_init();
 
   /* USER CODE END 2 */
 
@@ -121,17 +134,17 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+#ifdef _defaultTask_
 
-  /* Create the thread(s) */
-  /* definition and creation of Task1 */
-  osThreadDef(Task1, Task1_App, osPriorityNormal, 0, 128);
-  Task1Handle = osThreadCreate(osThread(Task1), NULL);
+/* USER CODE END RTOS_QUEUES */
 
-  /* definition and creation of Task2 */
-  osThreadDef(Task2, Task2_App, osPriorityNormal, 0, 128);
-  Task2Handle = osThreadCreate(osThread(Task2), NULL);
+/* Create the thread(s) */
+/* definition and creation of defaultTask */
+osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+/* USER CODE BEGIN RTOS_THREADS */
+#endif
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */

@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+app/src/logger.o: ../app/src/logger.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -44,9 +44,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- /home/ignaciocl/postgrado/rtos1/practica1/app/inc/logger.h \
- /home/ignaciocl/postgrado/rtos1/practica1/app/inc/dwt.h \
- ../Core/Src/../../app/inc/app.h
+ /home/ignaciocl/postgrado/rtos1/practica1/app/inc/logger.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -94,5 +92,3 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 /home/ignaciocl/postgrado/rtos1/practica1/app/inc/logger.h:
-/home/ignaciocl/postgrado/rtos1/practica1/app/inc/dwt.h:
-../Core/Src/../../app/inc/app.h:
